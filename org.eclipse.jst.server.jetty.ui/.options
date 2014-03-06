@@ -1,0 +1,6 @@
+org.eclipse.jst.server.jetty.ui/debug=true
+org.eclipse.jst.server.jetty.ui/CONFIG=true
+org.eclipse.jst.server.jetty.ui/PERF=true
+org.eclipse.jst.server.jetty.ui/WARNING=true
+org.eclipse.jst.server.jetty.ui/SEVERE=true
+org.eclipse.jst.server.jetty.ui/FINEST=true

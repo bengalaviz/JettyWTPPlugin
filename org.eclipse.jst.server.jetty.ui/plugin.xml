@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Copyright (c) 2010 Angelo Zerr and others.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+
+ Contributors:
+     Angelo Zerr <angelo.zerr@gmail.com> - Initial API and implementation 
+-->
+<?eclipse version="3.0"?>
+
+<plugin>
+<extension point="org.eclipse.wst.server.ui.serverImages">      
+      <image
+         id="org.eclipse.jst.server.jetty.71"
+         icon="icons/obj16/jetty.gif"
+         typeIds="org.eclipse.jst.server.jetty.runtime.71"/>
+      <image
+         id="org.eclipse.jst.server.jetty.71"
+         icon="icons/obj16/jetty.gif"
+         typeIds="org.eclipse.jst.server.jetty.71"/>     
+      <image
+            icon="icons/obj16/jetty.gif"
+            id="org.eclipse.jst.server.jetty.72"
+            typeIds="org.eclipse.jst.server.jetty.runtime.72">
+      </image>
+      <image
+            icon="icons/obj16/jetty.gif"
+            id="org.eclipse.jst.server.jetty.72"
+            typeIds="org.eclipse.jst.server.jetty.72">
+      </image>    
+      <image
+            icon="icons/obj16/jetty.gif"
+            id="org.eclipse.jst.server.jetty.73"
+            typeIds="org.eclipse.jst.server.jetty.runtime.73">
+      </image>
+      <image
+            icon="icons/obj16/jetty.gif"
+            id="org.eclipse.jst.server.jetty.73"
+            typeIds="org.eclipse.jst.server.jetty.73">
+      </image>    
+      <image
+            icon="icons/obj16/jetty.gif"
+            id="org.eclipse.jst.server.jetty.74"
+            typeIds="org.eclipse.jst.server.jetty.runtime.74">
+      </image>
+      <image
+            icon="icons/obj16/jetty.gif"
+            id="org.eclipse.jst.server.jetty.74"
+            typeIds="org.eclipse.jst.server.jetty.74">
+      </image>
+      <image
+            icon="icons/obj16/jetty.gif"
+            id="org.eclipse.jst.server.jetty.75"
+            typeIds="org.eclipse.jst.server.jetty.runtime.75">
+      </image>
+      <image
+            icon="icons/obj16/jetty.gif"
+            id="org.eclipse.jst.server.jetty.75"
+            typeIds="org.eclipse.jst.server.jetty.75">
+      </image>
+      <image
+            icon="icons/obj16/jetty.gif"
+            id="org.eclipse.jst.server.jetty.76"
+            typeIds="org.eclipse.jst.server.jetty.runtime.76">
+      </image>
+      <image
+            icon="icons/obj16/jetty.gif"
+            id="org.eclipse.jst.server.jetty.76"
+            typeIds="org.eclipse.jst.server.jetty.76">
+      </image>
+      <image
+         id="org.eclipse.jst.server.jetty.81"
+         icon="icons/obj16/jetty.gif"
+         typeIds="org.eclipse.jst.server.jetty.runtime.81"/>
+      <image
+         id="org.eclipse.jst.server.jetty.81"
+         icon="icons/obj16/jetty.gif"
+         typeIds="org.eclipse.jst.server.jetty.81"/>
+      <image
+      	id="org.eclipse.jst.server.jetty.91"
+      	icon="icons/obj16/jetty.gif"
+      	typeIds="org.eclipse.jst.server.jetty.runtime.91"/>
+      <image
+      	id="org.eclipse.jst.server.jetty.91"
+      	icon="icons/obj16/jetty.gif"
+      	typeIds="org.eclipse.jsy.server.jetty.91"/>
+   </extension>
+   
+   <extension point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+         id="org.eclipse.jst.server.jetty.ui.propertyTester"
+         namespace="org.eclipse.jst.server.jetty.ui"
+         properties="hasConfiguration"
+         type="java.lang.Object"
+         class="org.eclipse.jst.server.jetty.ui.internal.ConfigurationPropertyTester">
+      </propertyTester>
+   </extension>
+   
+   <extension point="org.eclipse.wst.server.ui.editorPages">
+      <page
+         id="org.eclipse.jst.server.jetty.configuration.editor.webmodule"
+         order="20"
+         name="%configurationEditorWebModulesPage"
+         typeIds="org.eclipse.jst.server.jetty.*"
+         class="org.eclipse.jst.server.jetty.ui.internal.editor.ConfigurationWebModuleEditorPart">
+         <enablement>
+           <test property="org.eclipse.jst.server.jetty.ui.hasConfiguration" value="true"/>
+         </enablement>
+      </page>
+   </extension>
+   
+   <extension point="org.eclipse.wst.server.ui.editorPageSections">      
+      <section
+         id="org.eclipse.jst.server.jetty.configuration.editor.port"
+         order="10"
+         insertionId="org.eclipse.wst.server.editor.overview.right"
+         typeIds="org.eclipse.jst.server.jetty.*"
+         class="org.eclipse.jst.server.jetty.ui.internal.editor.ConfigurationPortEditorSection">
+         <enablement>
+           <test property="org.eclipse.jst.server.jetty.ui.hasConfiguration" value="true"/>
+         </enablement>
+      </section>
+   </extension>
+      
+   <extension point="org.eclipse.wst.server.ui.wizardFragments">
+      <fragment
+         id="org.eclipse.jst.server.jetty.runtime.71"
+         typeIds="org.eclipse.jst.server.jetty.runtime.71"
+         class="org.eclipse.jst.server.jetty.ui.internal.JettyRuntimeWizardFragment"/>    
+      <fragment
+            class="org.eclipse.jst.server.jetty.ui.internal.JettyRuntimeWizardFragment"
+            id="org.eclipse.jst.server.jetty.runtime.72"
+            typeIds="org.eclipse.jst.server.jetty.runtime.72"/>
+      <fragment
+            class="org.eclipse.jst.server.jetty.ui.internal.JettyRuntimeWizardFragment"
+            id="org.eclipse.jst.server.jetty.runtime.73"
+            typeIds="org.eclipse.jst.server.jetty.runtime.73"/>
+      <fragment
+            class="org.eclipse.jst.server.jetty.ui.internal.JettyRuntimeWizardFragment"
+            id="org.eclipse.jst.server.jetty.runtime.74"
+            typeIds="org.eclipse.jst.server.jetty.runtime.74"/>
+      <fragment
+            class="org.eclipse.jst.server.jetty.ui.internal.JettyRuntimeWizardFragment"
+            id="org.eclipse.jst.server.jetty.runtime.75"
+            typeIds="org.eclipse.jst.server.jetty.runtime.75"/>
+      <fragment
+            class="org.eclipse.jst.server.jetty.ui.internal.JettyRuntimeWizardFragment"
+            id="org.eclipse.jst.server.jetty.runtime.76"
+            typeIds="org.eclipse.jst.server.jetty.runtime.76"/>
+      <fragment
+         id="org.eclipse.jst.server.jetty.runtime.81"
+         typeIds="org.eclipse.jst.server.jetty.runtime.81"
+         class="org.eclipse.jst.server.jetty.ui.internal.JettyRuntimeWizardFragment"/>
+      <fragment
+      	 id="org.eclipse.jst.server.jetty.runtime.91"
+      	 typeIds="org.eclipse.jst.server.jetty.runtime.91"
+      	 class="org.eclipse.jst.server.jetty.ui.internal.JettyRuntimeWizardFragment"/>
+   </extension>   
+   
+  <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+    <launchConfigurationTypeImage
+      id="org.eclipse.jst.server.jetty.ui.launchConfigurationTypeImage"
+      configTypeID="org.eclipse.jst.server.jetty.core.launchConfigurationType"
+      icon="icons/obj16/jetty.gif">
+    </launchConfigurationTypeImage>
+  </extension>
+
+  <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    <launchConfigurationTabGroup
+      id="org.eclipse.jst.server.jetty.ui.launchConfigurationTabGroup"
+      type="org.eclipse.jst.server.jetty.core.launchConfigurationType"
+      class="org.eclipse.jst.server.jetty.ui.internal.JettyLaunchConfigurationTabGroup">
+    </launchConfigurationTabGroup>
+  </extension>
+     
+  <extension point="org.eclipse.wst.common.project.facet.ui.images">
+    <image runtime-component-type="org.eclipse.jst.server.jetty"
+      path="icons/obj16/jetty.gif"/>
+  </extension>
+
+  <extension point="org.eclipse.wst.common.project.facet.core.runtimes">
+    <adapter>
+      <runtime-component id="org.eclipse.jst.server.jetty"/>
+      <factory class="org.eclipse.jst.server.ui.internal.RuntimeLabelProvider$Factory"/>
+      <type class="org.eclipse.wst.common.project.facet.ui.IRuntimeComponentLabelProvider"/>
+    </adapter>
+  </extension>
+     
+</plugin>    

@@ -1,0 +1,206 @@
+<%@ jet package="org.eclipse.jst.server.jetty.ui.websocket.internal.operations" 
+	imports="java.util.* org.eclipse.jst.j2ee.internal.common.operations.*" 
+	class="WebSocketServletTemplate" 
+%>
+<% CreateWebSocketTemplateModel model = (CreateWebSocketTemplateModel) argument; %>
+<%@ include file="_flags.template" %>
+<%@ include file="_package.template" %>
+<%@ include file="_imports.template" %>
+<%@ include file="websocket_servlet_classHeader.template" %>
+<%@ include file="_class.template" %>
+<% 
+	if (model.isGenericServletSuperclass()) { 
+%>
+	private static final long serialVersionUID = 1L;
+<% 
+	} 
+%>
+<%@ include file="_constructors.template" %>
+<%@ include file="_methods.template" %>
+	private final Set<% if (model.canSupportAnnotation()) {%><<%=model.getWebSocketClassName()%>><%}%> members = new CopyOnWriteArraySet<% if (model.canSupportAnnotation()) {%><<%=model.getWebSocketClassName()%>><%}%>();
+<% if (model.shouldGenInit()) { %>
+
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+	}
+<% } %>
+<% if (model.shouldGenDestroy()) { %>
+
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+	}
+<% } %>
+<% if (model.shouldGenGetServletConfig()) { %>
+
+	/**
+	 * @see Servlet#getServletConfig()
+	 */
+	public ServletConfig getServletConfig() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+<% } %>
+<% if (model.shouldGenGetServletInfo()) { %>
+
+	/**
+	 * @see Servlet#getServletInfo()
+	 */
+	public String getServletInfo() {
+		// TODO Auto-generated method stub
+		return null; 
+	}
+<% } %>
+<% if (model.shouldGenService() && !model.isHttpServletSuperclass()) { %>
+
+	/**
+	 * @see Servlet#service(ServletRequest request, ServletResponse response)
+	 */
+	public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+<% } %>
+<% if (model.shouldGenService() && model.isHttpServletSuperclass()) { %>
+
+	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+<% } %>
+<% if (model.shouldGenDoGet()) { %>
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+<% } %>
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		getServletContext().getNamedDispatcher("default").forward(request, response);
+	}
+	
+	/*
+	 * @see org.eclipse.jetty.websocket.WebSocketServlet#doWebSocketConnect(javax.servlet.http.HttpServletRequest, java.lang.String)
+	 */
+	protected WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
+		return new <%= model.getWebSocketClassName() %>();
+	}
+	
+	class <%= model.getWebSocketClassName() %> implements WebSocket {
+		private Outbound outbound;
+
+		public void onConnect(Outbound outbound) {
+			this.outbound = outbound;
+			members.add(this);
+		}
+
+		/*
+		 * @see org.eclipse.jetty.websocket.WebSocket#onMessage(byte, byte[],
+		 * int, int)
+		 */
+		public void onMessage(byte frame, byte[] data, int offset, int length) {
+		}
+
+		/*
+		 * @see org.eclipse.jetty.websocket.WebSocket#onMessage(byte,
+		 * java.lang.String)
+		 */
+		public void onMessage(byte frame, String data) {
+			<% if (model.canSupportAnnotation()) {%>
+			for (<%=model.getWebSocketClassName()%> member : members) {
+				try {
+					member.outbound.sendMessage(frame, data);
+				} catch (IOException e) {
+					// org.eclipse.jetty.util.log.Log.warn(e);
+					e.printStackTrace();
+				}
+			}<%} else { %>
+			for (Iterator iterator = members.iterator(); iterator.hasNext();) {
+				<%=model.getWebSocketClassName()%> member = (<%=model.getWebSocketClassName()%>) iterator.next();
+				try {
+					member.outbound.sendMessage(frame, data);
+				} catch (IOException e) {
+					// org.eclipse.jetty.util.log.Log.warn(e);
+					e.printStackTrace();
+				}
+			}<%} %>
+		}
+
+		/*
+		 * @see org.eclipse.jetty.websocket.WebSocket#onDisconnect()
+		 */
+		public void onDisconnect() {
+			members.remove(this);
+		}
+		
+		/*
+		 * 
+		 * @see org.eclipse.jetty.websocket.WebSocket#onFragment(boolean, byte,
+		 * byte[], int, int)
+		 */
+		public void onFragment(boolean more, byte opcode, byte[] data,
+				int offset, int length) {
+
+		}
+		
+	}
+
+<% if (model.shouldGenDoPut()) { %>
+
+	/**
+	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+<% } %>
+<% if (model.shouldGenDoDelete()) { %>
+
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+<% } %>
+<% if (model.shouldGenDoHead()) { %>
+
+	/**
+	 * @see HttpServlet#doHead(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doHead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+<% } %>
+<% if (model.shouldGenDoOptions()) { %>
+
+	/**
+	 * @see HttpServlet#doOptions(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+<% } %>
+<% if (model.shouldGenDoTrace()) { %>
+
+	/**
+	 * @see HttpServlet#doTrace(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doTrace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+<% } %>
+
+}

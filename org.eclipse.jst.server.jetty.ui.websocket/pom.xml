@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.eclipse.jetty.wtp</groupId>
+    <artifactId>jetty-wtp</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <groupId>org.eclipse.jst.server.jetty.ui.websocket</groupId>
+  <artifactId>org.eclipse.jst.server.jetty.ui.websocket</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>Jetty WTP Adaptor :: Websocket UI</name>
+  <packaging>eclipse-plugin</packaging>
+  <profiles>
+    <profile>
+      <id>build-server</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>findbugs-maven-plugin</artifactId>
+            <configuration>
+              <findbugsXmlOutput>true</findbugsXmlOutput>
+              <failOnError>false</failOnError>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <configuration>
+              <sourceEncoding>utf-8</sourceEncoding>
+              <minimumTokens>100</minimumTokens>
+              <targetJdk>1.5</targetJdk>
+              <format>xml</format>
+              <failOnViolation>false</failOnViolation>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>cpd-check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

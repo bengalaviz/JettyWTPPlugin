@@ -1,0 +1,6 @@
+/**
+ * Jetty WebSocket implementation class <%= model.getClassName() %>
+ * 
+ * NOTE: websocket server side API's are prototype and expected to change
+ **/
+%>

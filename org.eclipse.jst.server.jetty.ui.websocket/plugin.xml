@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Copyright (c) 2010 Angelo Zerr and others.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+
+ Contributors:
+     Angelo Zerr <angelo.zerr@gmail.com> - Initial API and implementation 
+-->
+<?eclipse version="3.0"?>
+<plugin>
+
+	<!-- Web Module Wizard -->
+    <extension
+         id="JettyUIProjectWizards"
+         point="org.eclipse.ui.newWizards">
+
+      <!--new websocket contribution-->
+ 	  <wizard
+            name="%WebSocketWebRegionWizard.name"
+            icon="icons/full/ctool16/newwebsocket_wiz.gif"
+            category="org.eclipse.wst.web.ui"
+            id="org.eclipse.jst.server.jetty.ui.websocket.internal.wizard.AddWebSocketWizard">
+         <class class="org.eclipse.jst.server.jetty.ui.websocket.internal.wizard.AddWebSocketWizard">
+            <parameter name="javaeeartifact" value="true"/>
+            <parameter name="menuIndex" value="10" />
+         </class>
+         <description>
+            %WebSocketWebRegionWizard.description
+         </description>
+      </wizard>
+      
+    </extension>
+</plugin>

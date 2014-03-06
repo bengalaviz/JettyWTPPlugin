@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.eclipse.jetty.wtp</groupId>
+    <artifactId>jetty-wtp</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>org.eclipse.jst.server.jetty.site</artifactId>
+  <packaging>eclipse-update-site</packaging>
+  <name>Jetty WTP Adaptor :: Site</name>
+  <build>
+  <plugins>
+    <plugin>
+      <groupId>org.sonatype.tycho</groupId>
+      <artifactId>maven-osgi-packaging-plugin</artifactId>
+      <version>${tycho-version}</version>
+      <configuration>
+       <archiveSite>true</archiveSite>
+      </configuration>
+    </plugin>
+  </plugins> 
+  </build>
+  <profiles>
+    <profile>
+      <id>build-server</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.dash.maven</groupId>
+            <artifactId>eclipse-maven-signing-plugin</artifactId>
+            <version>1.0.2.0-SNAPSHOT</version>
+            <executions>
+              <!-- example of executing locally for pack -->
+              <execution>
+                <id>pack</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>pack</goal>
+                </goals>
+              </execution>
+              <!-- the sign remote -->
+              <execution>
+                <id>sign</id>
+                <configuration>
+                  <signerInputDirectory>/home/data/httpd/download-staging.priv/jetty</signerInputDirectory>
+                </configuration>
+                <phase>package</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+              <!-- example of remote pack -->
+              <execution>
+                <id>repack</id>
+                <configuration>
+                  <inputFile>${project.build.directory}/signed/site_assembly.zip</inputFile>
+                </configuration>
+                <phase>package</phase>
+                <goals>
+                  <goal>pack</goal>
+                </goals>
+              </execution>
+              <!-- signing and pack alters tycho checksums so fix them -->
+              <execution>
+                <id>fixCheckSums</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>fixCheckSums</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+            <plugin>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>deploy</id>
+                  <phase>install</phase>
+                  <goals>
+                    <goal>run</goal>
+                  </goals>
+                  <configuration>
+                    <tasks>
+                      <delete failonerror="false">
+                        <fileset
+                          dir="/home/data/httpd/download.eclipse.org/jetty/updates/jetty-wtp/development">
+                          <include name="**" />
+                        </fileset>
+                      </delete>
+                      <mkdir dir="/home/data/httpd/download.eclipse.org/jetty/updates/jetty-wtp/development"/>
+                      <mkdir dir="/home/data/httpd/download.eclipse.org/jetty/updates/jetty-wtp/development/plugins"/>
+                      <mkdir dir="/home/data/httpd/download.eclipse.org/jetty/updates/jetty-wtp/development/features"/>
+                      <mkdir dir="/home/data/httpd/download.eclipse.org/jetty/updates/jetty-wtp/development/META-INF"/>                     
+                      <copy includeemptydirs="false"
+                        overwrite="true"
+                        verbose="true"
+                        todir="/home/data/httpd/download.eclipse.org/jetty/updates/jetty-wtp/development">
+                        <fileset dir="target/checksumFix">
+                          <include name="**" />
+                        </fileset>
+                      </copy>
+                    </tasks>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+          </plugins>
+      </build>
+    </profile>
+    
+  </profiles>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven.eclipse.org</id>
+      <url>http://maven.eclipse.org/nexus/content/groups/nightly</url>
+    </pluginRepository>
+  </pluginRepositories>
+</project>

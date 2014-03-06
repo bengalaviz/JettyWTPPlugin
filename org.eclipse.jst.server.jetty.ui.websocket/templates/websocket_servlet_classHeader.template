@@ -1,0 +1,169 @@
+/**
+ * Jetty WebSocketServlet implementation class <%= model.getClassName() %>
+<% 
+	if (model.isAnnotated()) { 
+%>
+ *
+ * @web.servlet
+ *   name="<%= model.getServletName() %>"
+ *   display-name="<%= model.getServletName() %>"
+<% 
+		if (model.getDescription() != null && model.getDescription().length() > 0) { 
+%>
+ *   description="<%= model.getDescription() %>"
+<% 
+		} 
+		
+		List<String[]> mappings = model.getServletMappings();
+ 		if (mappings != null && mappings.size() > 0) {
+			for (int i = 0; i < mappings.size(); i++) {
+				String map = model.getServletMapping(i); %>
+ *
+ * @web.servlet-mapping
+ *   url-pattern="<%= map %>"
+<% 
+			} 
+		}
+ 		List<String[]> initParams = model.getInitParams();
+ 		if (initParams != null && initParams.size() > 0) {
+    		for (int i = 0; i < initParams.size(); i++) {
+				String name = model.getInitParam(i, CreateWebSocketTemplateModel.NAME);
+				String value = model.getInitParam(i, CreateWebSocketTemplateModel.VALUE);
+ 				String description = model.getInitParam(i, CreateWebSocketTemplateModel.DESCRIPTION); 
+%>
+ *
+ * @web.servlet-init-param
+ *    name="<%= name %>"
+ *    value="<%= value %>"
+<% 
+				if (description != null && description.length() > 0) { 
+%>
+ *    description="<%= description %>"
+<%
+				}
+			} 
+		} 
+	} 
+%>
+ */
+<% 
+	if ("3.0".equals(model.getJavaEEVersion())) { 
+%>
+@WebServlet
+<%
+		Map<String, Object> params = model.getClassAnnotationParams();
+		if (params.size() == 1 && params.containsKey(CreateWebSocketTemplateModel.ATT_URL_PATTERNS)) {
+			List<String[]> mappings = (List<String[]>) params.get(CreateWebSocketTemplateModel.ATT_URL_PATTERNS);
+			if (mappings.size() == 1) {
+				String value = mappings.get(0)[0];
+%>("<%= value %>")
+<%
+			} else {
+%>({ 
+<%
+				boolean needComma = false;
+				for (String[] mapping : mappings) {
+					if (needComma) {
+%>, 
+<%
+					}
+%>"<%= mapping[0] %>"
+<%
+					needComma = true;
+				}
+%> })
+<%
+			}
+		} else if (!params.isEmpty()) { 
+%>(
+<%
+			Set<String> keys = params.keySet();
+			boolean needNewLine = keys.contains(CreateWebSocketTemplateModel.ATT_INIT_PARAMS) || 
+					(keys.contains(CreateWebSocketTemplateModel.ATT_URL_PATTERNS) && 
+							((List<String[]>) params.get(CreateWebSocketTemplateModel.ATT_URL_PATTERNS)).size() > 1);
+			boolean needComma = false;
+			for (String key : keys) {
+				if (needComma) {
+%>, 
+<%
+				}
+				
+				if (needNewLine) {
+%>
+		
+<%
+				} 
+			
+				if (key.equals(CreateWebSocketTemplateModel.ATT_NAME) || key.equals(CreateWebSocketTemplateModel.ATT_DESCRIPTION)) { 
+					String value = (String) params.get(key);
+%><%= key %> = "<%= value %>"
+<%
+				} else if (key.equals(CreateWebSocketTemplateModel.ATT_URL_PATTERNS)) {
+%><%= key %> = { 
+<%
+					List<String[]> mappings = (List<String[]>) params.get(key);
+					boolean needComma2 = false;
+					boolean needNewLine2 = mappings.size() > 1;
+					for (String[] mapping : mappings) {
+						if (needComma2) {
+%>, 
+<%
+						}
+				
+						if (needNewLine2) {
+%>
+				
+<%
+						} 
+%>"<%= mapping[0] %>"
+<%				
+						needComma2 = true;
+					}
+				
+					if (needNewLine2) {
+%>
+		
+<%
+					} else {
+%> 
+<%
+					}
+%>}
+<%
+				} else if (key.equals(CreateWebSocketTemplateModel.ATT_INIT_PARAMS)) {
+%><%= key %> = { 
+<%
+					List<String[]> initParams = (List<String[]>) params.get(key);
+					boolean needComma2 = false;
+					for (String[] initParam : initParams) {
+						if (needComma2) {
+%>, 
+<%
+						}
+						
+						String name = initParam[CreateWebSocketTemplateModel.NAME];
+						String value = initParam[CreateWebSocketTemplateModel.VALUE];
+						String description = initParam[CreateWebSocketTemplateModel.DESCRIPTION];
+%>
+				@WebInitParam(name = "<%= name %>", value = "<%= value %>"
+<%				
+						if (description != null && description.length() > 0) {
+%>, description = "<%= description %>"
+<%
+						}
+%>)
+<%
+						needComma2 = true;
+					}
+%>
+		}
+<%
+				}
+			
+				needComma = true;
+  			}
+%>)
+<%
+		}
+	}
+%>
