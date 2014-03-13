@@ -3,14 +3,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
+  <!-- parent>
     <groupId>org.eclipse</groupId>
     <artifactId>eclipse-parent</artifactId>
     <version>1.0.0</version>
-  </parent>
+  </parent>-->
   <groupId>org.eclipse.jetty.wtp</groupId>
   <artifactId>jetty-wtp</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Jetty WTP Adaptor :: Parent</name>
   <modules>
@@ -22,8 +22,8 @@
   </modules>
   <properties>
     <tycho-version>0.10.0</tycho-version>
-    <eclipse-site>http://download.eclipse.org/releases/helios</eclipse-site>
-    <orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/S20111201180206/updateSite</orbit-site>
+    <eclipse-site>http://download.eclipse.org/releases/kepler</eclipse-site>
+    <orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/S20130724151342/repository/</orbit-site>
   </properties>
   <build>
     <plugins>
@@ -139,7 +139,7 @@
   </build>
   <repositories>
     <repository>
-      <id>helios</id>
+      <id>kepler</id>
       <layout>p2</layout>
       <url>${eclipse-site}</url>
     </repository>
@@ -150,22 +150,34 @@
     </repository>
     <repository>
        <id>eclipse-milestone</id>
-       <name>Eclipse Indigo Milestone Repository</name>
-        <url>http://maven.eclipse.org/nexus/content/repositories/milestone/</url>
+       <name>Eclipse kepler Milestone Repository</name>
+        <url>http://download.eclipse.org/eclipse/updates/4.3</url>
         <layout>default</layout>
     </repository>
   </repositories>
   <pluginRepositories>
-    <pluginRepository>
+  	<pluginRepository>
+  		<id>central</id>
+  		<name>CentralRepository</name>
+  		<layout>default</layout>
+  		<url>http://central.maven.org/maven2</url>
+  		<snapshots><enabled>true</enabled></snapshots>
+  	</pluginRepository>
+  	<pluginRepository>
+    	<id>maven-repo</id>
+    	<name>Maven Repository</name>
+    	<url>http://repo.maven.org/maven2</url>
+    	<snapshots><enabled>true</enabled></snapshots>
+    </pluginRepository>
+    <!-- <pluginRepository>
       <id>jetty-snapshots</id>
-      <layout>default</layout>
       <url>https://oss.sonatype.org/content/groups/jetty</url>
       <snapshots><enabled>true</enabled></snapshots>
-    </pluginRepository>
+    </pluginRepository>-->
     <pluginRepository>
        <id>eclipse-milestone</id>
-       <name>Eclipse Indigo Milestone Repository</name>
-        <url>http://maven.eclipse.org/nexus/content/group/nightly/</url>
+       <name>Eclipse kepler Milestone Repository</name>
+        <url>http://download.eclipse.org/eclipse/updates/4.3</url>
         <snapshots><enabled>true</enabled></snapshots>
     </pluginRepository>
   </pluginRepositories>

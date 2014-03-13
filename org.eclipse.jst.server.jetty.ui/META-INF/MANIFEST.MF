@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jst.server.jetty.ui;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Activator: org.eclipse.jst.server.jetty.ui.internal.JettyUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -16,7 +16,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wst.server.ui;bundle-version="[1.0.204,2.0.0)",
  org.eclipse.jst.server.jetty.core;bundle-version="1.0.0",
  org.eclipse.jst.server.core;bundle-version="[1.0.103,2.0.0)",
- org.eclipse.jst.server.ui;bundle-version="[1.0.103,2.0.0)",
  org.eclipse.wst.common.project.facet.ui;bundle-version="[1.1.0,2.0.0)",
  org.eclipse.ui.forms;bundle-version="[3.2.0,4.0.0)"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
