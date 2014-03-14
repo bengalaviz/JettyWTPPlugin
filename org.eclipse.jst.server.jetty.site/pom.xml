@@ -115,7 +115,7 @@
   <pluginRepositories>
     <pluginRepository>
       <id>maven.eclipse.org</id>
-      <url>http://maven.eclipse.org/nexus/content/groups/nightly</url>
+      <url>http://central.maven.org/maven2</url>
     </pluginRepository>
   </pluginRepositories>
 </project>

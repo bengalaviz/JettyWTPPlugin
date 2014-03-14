@@ -109,21 +109,6 @@
             <encoding>UTF-8</encoding>
           </configuration>
         </plugin>
-        <!-- plugin>
-          <groupId>org.sonatype.tycho</groupId>
-          <artifactId>tycho-p2-publisher-director</artifactId>
-          <version>${tycho-version}</version>
-          <configuration>
-            <compress>true</compress>
-            <statsURI>http://download.eclipse.org/releases/stats/helios/</statsURI>
-            <statsTrackedArtifacts>org.eclipse.jst.server.jetty.core,org.eclipse.jst.server.jetty.ui,org.eclipse.jst.server.jetty.websocket.ui</statsTrackedArtifacts>
-            <environmentsToArchive>
-              os=win32;ws=win32;arch=x86*
-              os=linux;ws=gtk;arch=x86*
-            </environmentsToArchive>
-            <productsToArchive>*site*</productsToArchive>
-          </configuration>
-        </plugin-->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
@@ -169,11 +154,6 @@
     	<url>http://repo.maven.org/maven2</url>
     	<snapshots><enabled>true</enabled></snapshots>
     </pluginRepository>
-    <!-- <pluginRepository>
-      <id>jetty-snapshots</id>
-      <url>https://oss.sonatype.org/content/groups/jetty</url>
-      <snapshots><enabled>true</enabled></snapshots>
-    </pluginRepository>-->
     <pluginRepository>
        <id>eclipse-milestone</id>
        <name>Eclipse kepler Milestone Repository</name>
