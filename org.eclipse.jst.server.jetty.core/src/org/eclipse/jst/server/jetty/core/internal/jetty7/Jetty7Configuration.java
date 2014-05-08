@@ -117,10 +117,6 @@ public class Jetty7Configuration extends JettyConfiguration implements JettyCons
                     }
                     	
                     ports.add(new ServerPort(id,name,port,name));
-                    // TODO : how get HTTP type port???
-
-                    // ports.add(new ServerPort(portId, name, port, protocol2,
-                    // contentTypes, advanced));
                 }
             }
 

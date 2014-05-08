@@ -18,4 +18,6 @@ public interface JettyConstants
     public static final String __JSP_FOLDER = "jsp";
     public static final String __JAR_EXT = "jar";
     public static final String __HTTP = "http";
+    
+    public static final String __J9_HTTP_INI = "http.ini";
 }

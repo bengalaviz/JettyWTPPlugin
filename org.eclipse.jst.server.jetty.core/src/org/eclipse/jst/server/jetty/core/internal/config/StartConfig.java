@@ -25,7 +25,7 @@ public class StartConfig
 
     public static InputStream getInputStream(File startJARFile) throws ZipException, IOException
     {
-        // Load start.config from the start.jar coming from the Jetty serveur
+        // Load start.config from the start.jar coming from the Jetty server
         // install
         InputStream stream = IOUtils.getInputStream(startJARFile,"org/eclipse/jetty/start/start.config");
 

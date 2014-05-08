@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -31,6 +32,7 @@ import org.eclipse.jst.server.jetty.core.IJettyServer;
 import org.eclipse.jst.server.jetty.core.IJettyServerWorkingCopy;
 import org.eclipse.jst.server.jetty.core.JettyPlugin;
 import org.eclipse.jst.server.jetty.core.WebModule;
+import org.eclipse.jst.server.jetty.core.internal.util.IOUtils;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleType;
@@ -150,7 +152,17 @@ public class JettyServer extends ServerDelegate implements IJettyServer, IJettyS
         _configuration = JettyPlugin.getJettyConfiguration(id,folder);
         try
         {
-            _configuration.importFromPath(path,runtimeBaseDirectory,isTestEnvironment(),monitor);
+        	_configuration.importFromPath(path,runtimeBaseDirectory,isTestEnvironment(),monitor);
+        	if (runtime.getRuntimeType().getName().equals("Jetty v9.1") && folder != null){
+        		//import files from Runtime path
+        		IPath runtimeLocation = runtime.getLocation();
+        		IFolder runtimeLocationFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(runtimeLocation);
+        		
+        		IFolder jettyBaseFolder = folder.getFolder("/jettyBase");
+                
+        	}else{
+        		
+        	}
         }
         catch (CoreException ce)
         {
