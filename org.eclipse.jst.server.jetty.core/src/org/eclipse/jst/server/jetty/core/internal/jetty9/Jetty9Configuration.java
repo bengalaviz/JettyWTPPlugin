@@ -17,6 +17,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -35,6 +39,7 @@ import org.eclipse.jst.server.jetty.core.WebModule;
 import org.eclipse.jst.server.jetty.core.internal.IJettyWebModule;
 import org.eclipse.jst.server.jetty.core.internal.JettyConfiguration;
 import org.eclipse.jst.server.jetty.core.internal.JettyConstants;
+import org.eclipse.jst.server.jetty.core.internal.JettyServer;
 import org.eclipse.jst.server.jetty.core.internal.Messages;
 import org.eclipse.jst.server.jetty.core.internal.Trace;
 import org.eclipse.jst.server.jetty.core.internal.config.JettyXMLConfig;
@@ -425,24 +430,17 @@ public class Jetty9Configuration extends JettyConfiguration implements JettyCons
             }
 
             //Create Base
-            IFolder jettyBaseFolder = folder.getFolder("/jettyBase");
+            /**IFolder jettyBaseFolder = folder.getFolder("/jettyBase");
             IOUtils.createFolder(jettyBaseFolder, monitor);
-            
-            IFolder jettyEtc = folder.getFolder(jettyBaseFolder.getName() + "/etc");
-            IOUtils.createFolder(jettyEtc, monitor);
-            
-            IFolder jettyLib = folder.getFolder(jettyBaseFolder.getName() + "/lib");
-            IOUtils.createFolder(jettyLib, monitor);
-            
-            IFolder jettyResources = folder.getFolder(jettyBaseFolder.getName() + "/resources");
-            IOUtils.createFolder(jettyResources, monitor);
             
             IFolder jettyStartd = folder.getFolder(jettyBaseFolder.getName() + "/start.d");
             IOUtils.createFolder(jettyStartd, monitor);
             
             IFolder jettyWebapps = folder.getFolder(jettyBaseFolder.getName() + "/webapps");
-            IOUtils.createFolder(jettyWebapps, monitor);
+            IOUtils.createFolder(jettyWebapps, monitor);**/
 
+            
+            
             monitor.done();
         }catch (Exception e){
             Trace.trace(Trace.SEVERE,"Could not save Jetty v9.x configuration to " + folder.toString(),e);

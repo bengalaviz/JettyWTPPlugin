@@ -11,12 +11,17 @@
  *******************************************************************************/
 package org.eclipse.jst.server.jetty.core.internal;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -158,8 +163,33 @@ public class JettyServer extends ServerDelegate implements IJettyServer, IJettyS
         		IPath runtimeLocation = runtime.getLocation();
         		IFolder runtimeLocationFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(runtimeLocation);
         		
+        		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                File serverPath = workspace.getRoot().getLocation().toFile();
+        		String jettyBase = serverPath.getAbsolutePath() + folder.getFolder("/jettyBase").getFullPath().toOSString();
         		IFolder jettyBaseFolder = folder.getFolder("/jettyBase");
+        		//if (jettyBaseFolder.exists()){
+        			jettyBaseFolder.delete(true, monitor);
+        			jettyBaseFolder.create(false, true, monitor);
+        		//}
                 
+                
+        		System.setProperty("jetty.base", jettyBase);
+        		System.setProperty("jetty.home", runtimeLocation.toOSString());
+        		try{
+        			File file = new File(runtimeLocation.toOSString() + "/start.jar");
+        			URL url = file.toURL();
+        			URL[] urls = new URL[]{url};
+	        		URLClassLoader urlcl = URLClassLoader.newInstance(urls);
+	                Class<?> jettyClass = urlcl.loadClass("org.eclipse.jetty.start.Main");
+	                Constructor constructor = jettyClass.getDeclaredConstructor();
+	                constructor.setAccessible(true);
+	                Object jettyObj = constructor.newInstance();
+	                Method method = jettyClass.getDeclaredMethod("main", new Class[]{String[].class});
+	                String[] params = {"--add-to-start=http,deploy jetty.home=\"" + runtimeLocation.toOSString() + "\" jetty.base=\"" + jettyBase + "\""};
+	                method.invoke(jettyObj, (Object) params);
+        		}catch(Exception e){
+        			e.printStackTrace();
+        		}
         	}else{
         		
         	}
