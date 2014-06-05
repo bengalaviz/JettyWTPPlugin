@@ -7,6 +7,6 @@ If you want to just install the plugin, you can install the most current one fro
 
 http://bengalaviz.com/JettyWTPPlugin/
 
-I did add the ability to install Jetty 9.1, but have yet to test so that is considered experimental at this point.
+Jetty 9 is being worked on currently and I will post an update once it is ready for testing.
 
 Enjoy!
